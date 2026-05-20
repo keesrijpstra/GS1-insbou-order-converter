@@ -27,8 +27,17 @@ class ItemLevelDespatchAdvice extends BaseItem
 			$data['DeliveredQuantity'] = (float) $data['DeliveredQuantity'];
 		}
 		
-		if(!isset($data['DeliveredQuantityMeasurementUnit']) && isset($data['DeliveredNetQuantityMeasurementUnit'])) {
-			$data['DeliveredQuantityMeasurementUnit'] = $data['DeliveredNetQuantityMeasurementUnit'];
+		if(isset($data['DeliveredNetQuantity'])) {
+			if(!isset($data['DeliveredQuantity'])) {
+				$data['DeliveredQuantity'] = $data['DeliveredNetQuantity'];
+			}
+			unset($data['DeliveredNetQuantity']);
+		}
+		
+		if(isset($data['DeliveredNetQuantityMeasurementUnit'])) {
+			if(!isset($data['DeliveredQuantityMeasurementUnit'])) {
+				$data['DeliveredQuantityMeasurementUnit'] = $data['DeliveredNetQuantityMeasurementUnit'];
+			}
 			unset($data['DeliveredNetQuantityMeasurementUnit']);
 		} // Oosterberg sends DeliveryNet... instead of Delivery...
 		
