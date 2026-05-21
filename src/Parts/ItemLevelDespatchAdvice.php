@@ -44,7 +44,6 @@ class ItemLevelDespatchAdvice extends BaseItem
 			}
 			unset($data['DeliveredNetQuantityMeasurementUnit']);
 		} // Oosterberg and Rexel send DeliveredNet... instead of Delivered...
-		} // Oosterberg sends DeliveryNet... instead of Delivery...
 		
 		if (isset($data['LineIdentification']) && ! is_int($data['LineIdentification'])) {
 			$data['LineIdentification'] = (int) $data['LineIdentification'];
