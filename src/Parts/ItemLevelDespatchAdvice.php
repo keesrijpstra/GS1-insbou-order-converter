@@ -29,16 +29,21 @@ class ItemLevelDespatchAdvice extends BaseItem
 		
 		if(isset($data['DeliveredNetQuantity'])) {
 			if(!isset($data['DeliveredQuantity'])) {
-				$data['DeliveredQuantity'] = $data['DeliveredNetQuantity'];
+				$data['DeliveredQuantity'] = (float) $data['DeliveredNetQuantity'];
 			}
 			unset($data['DeliveredNetQuantity']);
 		}
-		
+
+		if (isset($data['DeliveredQuantity']) && ! is_float($data['DeliveredQuantity'])) {
+			$data['DeliveredQuantity'] = (float) $data['DeliveredQuantity'];
+		}
+
 		if(isset($data['DeliveredNetQuantityMeasurementUnit'])) {
 			if(!isset($data['DeliveredQuantityMeasurementUnit'])) {
 				$data['DeliveredQuantityMeasurementUnit'] = $data['DeliveredNetQuantityMeasurementUnit'];
 			}
 			unset($data['DeliveredNetQuantityMeasurementUnit']);
+		} // Oosterberg and Rexel send DeliveredNet... instead of Delivered...
 		} // Oosterberg sends DeliveryNet... instead of Delivery...
 		
 		if (isset($data['LineIdentification']) && ! is_int($data['LineIdentification'])) {
